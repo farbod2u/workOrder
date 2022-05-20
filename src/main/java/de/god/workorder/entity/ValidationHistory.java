@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * @author Saeed Safaeian
+ */
 @Entity
 @Table(name = "tbl_validation_history")
 @Data

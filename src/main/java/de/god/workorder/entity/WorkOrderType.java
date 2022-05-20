@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Saeed Safaeian
+ */
 @Entity
 @Table(name = "tbl_order_type")
 @Data
