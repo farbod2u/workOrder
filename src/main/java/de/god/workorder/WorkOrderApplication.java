@@ -46,11 +46,11 @@ public class WorkOrderApplication {
         if(!orderTypeRepository.existsById("REPLACEMENT"))
             orderTypeRepository.save(new WorkOrderType("REPLACEMENT"));
 
-        if(!departmentRepository.existsById("GOod analysis department"))
-            departmentRepository.save(new Department("GOod analysis department"));
-       if(!departmentRepository.existsById("GOod repair department"))
-            departmentRepository.save(new Department("GOod repair department"));
-       if(!departmentRepository.existsById("GOod replacement department"))
-            departmentRepository.save(new Department("GOod replacement department"));
+        if(!departmentRepository.existsById("GOoD analysis department"))
+            departmentRepository.save(new Department("GOoD analysis department"));
+       if(!departmentRepository.existsById("GOoD repair department"))
+            departmentRepository.save(new Department("GOoD repair department"));
+       if(!departmentRepository.existsById("GOoD replacement department"))
+            departmentRepository.save(new Department("GOoD replacement department"));
     }
 }
