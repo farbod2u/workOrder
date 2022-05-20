@@ -113,7 +113,7 @@ public class ValidationService {
     }
 
     private void validateFactoryName(WorkOrder workOrder, List<String> errors) {
-        if (workOrder.getFactory_name() == null)
+        if (workOrder.getFactory_name() == null || workOrder.getFactory_name().trim().length() < 1)
             errors.add("Factory_Name must has value.");
     }
 
@@ -142,7 +142,7 @@ public class ValidationService {
     }
 
     private void validateResponsiblePerson(WorkOrder workOrder, List<String> errors) {
-        if (workOrder.getResponsible_person() == null)
+        if (workOrder.getResponsible_person() == null || workOrder.getResponsible_person().trim().length() < 1)
             errors.add("Responsible_Person must has value.");
     }
 
@@ -181,7 +181,7 @@ public class ValidationService {
     private void validateEndDate(WorkOrder workOrder, List<String> errors) {
         if (workOrder.getEnd_date() == null)
             errors.add("End_Date must has value.");
-        else if (workOrder.getEnd_date().compareTo(workOrder.getStart_date()) <= 0)
+        else if (workOrder.getStart_date() != null && workOrder.getEnd_date().compareTo(workOrder.getStart_date()) <= 0)
             errors.add("End_Date must be after Start_Date");
     }
 
@@ -193,9 +193,9 @@ public class ValidationService {
     }
 
     private void validateDepartment(WorkOrder workOrder, List<String> errors) {
-        if (workOrder.getDepartment() == null)
+        if (workOrder.getDepartment() == null || workOrder.getDepartment().trim().length() < 1)
             errors.add("Department must has value.");
-        if (!departmentRepository.existsById(workOrder.getDepartment()))
+        else if (!departmentRepository.existsById(workOrder.getDepartment()))
             errors.add("Department is invalied.");
     }
 }
