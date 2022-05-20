@@ -34,4 +34,10 @@ public class ValidationHistory {
         VALID,
         INVALID
     }
+
+    @PrePersist
+    void prePersist() {
+        if(receive_date == null)
+            receive_date = new Timestamp(System.currentTimeMillis());
+    }
 }
