@@ -1,12 +1,17 @@
 package de.god.workorder;
 
 import de.god.workorder.entity.Currency;
+import de.god.workorder.entity.WorkOrderType;
 import de.god.workorder.repository.CurrencyRepository;
+import de.god.workorder.repository.WorkOrderTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * @author Saeed Safaeian
+ */
 @SpringBootApplication
 public class WorkOrderApplication {
 
@@ -17,15 +22,23 @@ public class WorkOrderApplication {
     @Autowired
     private CurrencyRepository currencyRepository;
 
+    @Autowired
+    private WorkOrderTypeRepository orderTypeRepository;
+
     @Bean
     public void loadData() {
         if (!currencyRepository.existsById("USD"))
             currencyRepository.save(new Currency("USD"));
-
         if (!currencyRepository.existsById("IRR"))
             currencyRepository.save(new Currency("IRR"));
-
         if (!currencyRepository.existsById("EUR"))
             currencyRepository.save(new Currency("EUR"));
+
+        if(!orderTypeRepository.existsById("ANALYSIS"))
+            orderTypeRepository.save(new WorkOrderType("ANALYSIS"));
+        if(!orderTypeRepository.existsById("REPAIR"))
+            orderTypeRepository.save(new WorkOrderType("REPAIR"));
+        if(!orderTypeRepository.existsById("REPLACEMENT"))
+            orderTypeRepository.save(new WorkOrderType("REPLACEMENT"));
     }
 }
