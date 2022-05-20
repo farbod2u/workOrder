@@ -1,4 +1,4 @@
-package de.god.workorder.controller;
+package de.god.workorder.rest_controller;
 
 import de.god.workorder.entity.WorkOrder;
 import de.god.workorder.service.ValidationService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Saeed Safaeian
  */
 @RestController
-@RequestMapping("/work-order")
+@RequestMapping("/api/work-order")
 @RequiredArgsConstructor
 public class WorkOrderController {
 
