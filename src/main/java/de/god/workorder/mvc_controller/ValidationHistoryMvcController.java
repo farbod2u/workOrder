@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.god.workorder.entity.WorkOrder;
 import de.god.workorder.mvc_controller.model.WorkOrderModel;
+import de.god.workorder.service.ValidationHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
@@ -30,9 +31,10 @@ import java.net.http.HttpClient;
 @RequestMapping("/validation-history")
 @RequiredArgsConstructor
 @Log4j2
-public class ValidationHistoryController {
+public class ValidationHistoryMvcController {
 
     private final ObjectMapper objectMapper;
+    private final ValidationHistoryService validationHistoryService;
 
     @GetMapping
     public String index(Model model) {
@@ -56,5 +58,12 @@ public class ValidationHistoryController {
         model.addAttribute("workOrderModel", workOrderModel);
 
         return "index";
+    }
+
+    @GetMapping("/getall")
+    public String getAll(Model model){
+
+
+        return "getall";
     }
 }
