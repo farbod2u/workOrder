@@ -22,21 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ValidationService {
 
-    private final ValidationHistoryRepository validationHistoryRepository;
+    private final ValidationHistoryService validationHistoryService;
     private final CurrencyRepository currencyRepository;
     private final WorkOrderTypeRepository workOrderTypeRepository;
     private final DepartmentRepository departmentRepository;
-
-    /**
-     * save each validation to DB
-     *
-     * @param history
-     * @return history
-     */
-    public ValidationHistory saveValidation(ValidationHistory history) {
-        validationHistoryRepository.save(history);
-        return history;
-    }
 
     /**
      * @param workOrder
@@ -78,12 +67,12 @@ public class ValidationService {
          * if any error occurred in rule validation then throw exception
          */
         if (errors.size() > 0) {
-            saveValidation(new ValidationHistory(null, null, workOrder.getType(),
+            validationHistoryService.save(new ValidationHistory(null, null, workOrder.getType(),
                     workOrder.getDepartment(), ValidationHistory.StatusType.INVALID));
             throw new WorkOrderValidationException(errors.toString());
         }
 
-        saveValidation(new ValidationHistory(null, null, workOrder.getType(),
+        validationHistoryService.save(new ValidationHistory(null, null, workOrder.getType(),
                 workOrder.getDepartment(), ValidationHistory.StatusType.VALID));
 
         return "VALID";
