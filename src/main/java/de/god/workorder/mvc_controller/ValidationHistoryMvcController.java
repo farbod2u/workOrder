@@ -62,8 +62,7 @@ public class ValidationHistoryMvcController {
 
     @GetMapping("/getall")
     public String getAll(Model model){
-
-
+        model.addAttribute("workOrders", validationHistoryService.getAll());
         return "getall";
     }
 }
