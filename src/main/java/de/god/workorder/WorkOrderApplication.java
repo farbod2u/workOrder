@@ -28,36 +28,4 @@ public class WorkOrderApplication extends SpringBootServletInitializer {
         SpringApplication.run(WorkOrderApplication.class, args);
     }
 
-    /*@Autowired
-    private CurrencyRepository currencyRepository;
-
-    @Autowired
-    private WorkOrderTypeRepository orderTypeRepository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
-    @Bean
-    public void loadData() {
-        if (!currencyRepository.existsById("USD"))
-            currencyRepository.save(new Currency("USD"));
-        if (!currencyRepository.existsById("IRR"))
-            currencyRepository.save(new Currency("IRR"));
-        if (!currencyRepository.existsById("EUR"))
-            currencyRepository.save(new Currency("EUR"));
-
-        if(!orderTypeRepository.existsById("ANALYSIS"))
-            orderTypeRepository.save(new WorkOrderType("ANALYSIS"));
-        if(!orderTypeRepository.existsById("REPAIR"))
-            orderTypeRepository.save(new WorkOrderType("REPAIR"));
-        if(!orderTypeRepository.existsById("REPLACEMENT"))
-            orderTypeRepository.save(new WorkOrderType("REPLACEMENT"));
-
-        if(!departmentRepository.existsById("GOoD analysis department"))
-            departmentRepository.save(new Department("GOoD analysis department"));
-       if(!departmentRepository.existsById("GOoD repair department"))
-            departmentRepository.save(new Department("GOoD repair department"));
-       if(!departmentRepository.existsById("GOoD replacement department"))
-            departmentRepository.save(new Department("GOoD replacement department"));
-    }*/
 }
