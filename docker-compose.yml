@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mysql-work-order-db:
+    image: mysql
+    networks:
+      - work-order-2-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=work-order-db
+    container_name: mysql-work-order-db
+
+  work-order-project:
+    image: work-order-project:latest
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    networks:
+      - work-order-2-db
+    depends_on:
+      - mysql-work-order-db
+    container_name: work-order-project
+
+networks:
+  work-order-2-db:
+

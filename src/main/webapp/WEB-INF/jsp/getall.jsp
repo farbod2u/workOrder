@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Validation History</h1>
-<a href="http://localhost:8080/validation-history">Back</a>
+<a href="/work-order/validation-history">Back</a>
 <table border="1">
     <thead>
     <tr>

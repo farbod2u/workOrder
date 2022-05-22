@@ -28,6 +28,6 @@
     </table>
 </form:form>
 <h1>History</h1>
-<a href="http://localhost:8080/validation-history/getall">Validation History</a>
+<a href="/work-order/validation-history/getall">Validation History</a>
 </body>
 </html>
