@@ -2,6 +2,7 @@ package de.god.workorder.service;
 
 import de.god.workorder.entity.Part;
 import de.god.workorder.entity.WorkOrder;
+import de.god.workorder.exception.WorkOrderValidationException;
 import de.god.workorder.repository.CurrencyRepository;
 import de.god.workorder.repository.DepartmentRepository;
 import de.god.workorder.repository.WorkOrderTypeRepository;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -110,4 +112,112 @@ class ValidationServiceTest {
         verify(currencyRepository).existsById(workOrder.getCurrency());
         assertThat(result).isEqualTo("VALID");
     }
+
+    @Test
+    void validate_OK_REPLACEMENT() {
+        //given
+        WorkOrder workOrder = new WorkOrder(
+                "REPLACEMENT",
+                "GOoD department",
+                LocalDate.parse("2022-02-01"),
+                LocalDate.parse("2022-02-10"),
+                "EUR",
+                123.4D,
+                LocalDate.parse("2022-02-02"),
+                LocalDate.parse("2022-02-03"),
+                "Responsible Person #1",
+                "Factory Name #1",
+                "DN12345678",
+                List.of(
+                        new Part("Inv name #1", "name #1", 3),
+                        new Part("Inv name #2", "name #2", 1)
+                )
+        );
+
+        given(workOrderTypeRepository.existsById(anyString())).willReturn(true);
+        given(departmentRepository.existsById(anyString())).willReturn(true);
+        given(currencyRepository.existsById(anyString())).willReturn(true);
+
+        //when
+        String result = underTest.Validate(workOrder);
+
+        //then
+        verify(workOrderTypeRepository).existsById(workOrder.getType());
+        verify(departmentRepository).existsById(workOrder.getDepartment());
+        verify(currencyRepository).existsById(workOrder.getCurrency());
+        assertThat(result).isEqualTo("VALID");
+    }
+
+    @Test
+    void validate_invalid_type() {
+        //given
+        WorkOrder workOrder = new WorkOrder(
+                "any",
+                "GOoD department",
+                LocalDate.parse("2022-02-01"),
+                LocalDate.parse("2022-02-10"),
+                "EUR",
+                123.4D,
+                LocalDate.parse("2022-02-02"),
+                LocalDate.parse("2022-02-03"),
+                "Responsible Person #1",
+                "Factory Name #1",
+                "DN12345678",
+                List.of(
+                        new Part("Inv name #1", "name #1", 3),
+                        new Part("Inv name #2", "name #2", 1)
+                )
+        );
+
+        given(workOrderTypeRepository.existsById(anyString())).willReturn(false);
+        given(departmentRepository.existsById(anyString())).willReturn(true);
+        given(currencyRepository.existsById(anyString())).willReturn(true);
+
+        //when
+
+        //then
+
+        assertThatThrownBy(() -> underTest.Validate(workOrder))
+                .isInstanceOf(WorkOrderValidationException.class)
+                .hasMessageContaining("Work order type is invalid.");
+    }
+
+    @Test
+    void validate_invalid_department() {
+        //given
+        WorkOrder workOrder = new WorkOrder(
+                "any",
+                "any",
+                LocalDate.parse("2022-02-01"),
+                LocalDate.parse("2022-02-10"),
+                "EUR",
+                123.4D,
+                LocalDate.parse("2022-02-02"),
+                LocalDate.parse("2022-02-03"),
+                "Responsible Person #1",
+                "Factory Name #1",
+                "DN12345678",
+                List.of(
+                        new Part("Inv name #1", "name #1", 3),
+                        new Part("Inv name #2", "name #2", 1)
+                )
+        );
+
+        given(workOrderTypeRepository.existsById(anyString())).willReturn(true);
+        given(departmentRepository.existsById(anyString())).willReturn(false);
+        given(currencyRepository.existsById(anyString())).willReturn(true);
+
+        //when
+
+        //then
+
+        assertThatThrownBy(() -> underTest.Validate(workOrder))
+                .isInstanceOf(WorkOrderValidationException.class)
+                .hasMessageContaining("Department is invalied.");
+    }
+
+    /**
+     * and so on for other section of validate() method...
+     */
+
 }
