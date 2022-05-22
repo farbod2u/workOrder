@@ -28,7 +28,7 @@ public class WorkOrderApplication extends SpringBootServletInitializer {
         SpringApplication.run(WorkOrderApplication.class, args);
     }
 
-    @Autowired
+    /*@Autowired
     private CurrencyRepository currencyRepository;
 
     @Autowired
@@ -59,5 +59,5 @@ public class WorkOrderApplication extends SpringBootServletInitializer {
             departmentRepository.save(new Department("GOoD repair department"));
        if(!departmentRepository.existsById("GOoD replacement department"))
             departmentRepository.save(new Department("GOoD replacement department"));
-    }
+    }*/
 }
