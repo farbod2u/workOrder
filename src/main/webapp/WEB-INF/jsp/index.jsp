@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Validation</h1>
-<form:form action="/validation-history" method="post" modelAttribute="workOrderModel">
+<form:form action="http://localhost:8080/work-order/validation-history" method="post" modelAttribute="workOrderModel">
 
     <table>
         <tr>

@@ -47,7 +47,7 @@ public class ValidationHistoryMvcController {
         try {
             WorkOrder workOrder = objectMapper.readValue(workOrderModel.getJson(), WorkOrder.class);
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8080/api/work-order/validation", workOrder, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8080/work-order/api/work-order/validation", workOrder, String.class);
             workOrderModel.setResult(response.getBody());
         } catch (RestClientException e) {
             workOrderModel.setResult(" " + e.getMessage().substring(e.getMessage().indexOf("[") + 1, e.getMessage().indexOf("]")).replaceAll(",","\n"));
